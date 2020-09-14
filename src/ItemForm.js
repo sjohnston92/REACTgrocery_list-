@@ -1,32 +1,33 @@
-import React from 'react';
+import React from "react";
 
 class ItemForm extends React.Component {
-
-  state = { name: '' }
-
-  handleChange = (e) => {
-    this.setState({ name: e.target.value });
-  }
-
+  state = { itemName: "" };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.name);
-    this.setState({ name: '' })
-  }
+    this.props.add(this.state.itemName);
+    this.setState({
+      itemName: "",
+    });
 
+  };
 
-  render(){
-    const { name } = this.state;
+  handleChange = (e) => {
+    this.setState({
+      itemName: e.target.value,
+    });
+  };
+
+  render() {
     return (
-      <form on Submit = {this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <input
-        value={name} 
-        name="name"
-        onChange={this.handleChange}
-        required 
-        placeholder="Add an Item" />
+          value={this.state.itemName}
+          required
+          placeholder="add Item"
+          onChange={this.handleChange}
+        />
       </form>
-    )
+    );
   }
 }
 

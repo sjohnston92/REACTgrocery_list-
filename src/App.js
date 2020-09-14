@@ -1,47 +1,52 @@
-import React from 'react';
-import './App.css';
-import List from './list';
-import ItemForm from './ItemForm';
-
+import React from "react";
+import "./App.css";
+import List from "./List";
+import ItemForm from "./ItemForm";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
-  state ={
+  state = {
     items: [
-      {id:1, name:"Banana", complete: true,},
-      {id:2, name:"Eggs", complete: false,},
-      {id:3, name:"Milk", complete: false,},
-    ]
+      { id: 1, name: "Banana", complete: false },
+      { id: 2, name: "Milk", complete: false },
+      { id: 3, name: "Eggs", complete: false },
+    ],
   };
 
-
-  getUniqId = () => {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-   }
-
-   addItem = (name) => {
+  handleClick = (id) => {
+    console.log(id);
     const { items } = this.state;
-    const item = { name, id: this.getUniqId() , complete: false }
-    this.setState({ items: [item, ...items] }); 
-    }
 
-  renderItems = () => {
-    const {items, } = this.state;
-    return items.map(item =>
-      <li key={item.id}>{item.name}</li>
-    )
+    const newItem = items.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          complete: !item.complete,
+        };
+      }
+      return item;
+    });
+
+    this.setState({
+      items: newItem,
+    });
   };
-
-  render(){
-    const {items} = this.state;
+  addItem = (item) => {
+    const { items } = this.state;
+    const newItem = { id: Math.random(), name: item, complete: false };
+    this.setState({
+      items: [...items, newItem],
+    });
+  };
+  render() {
     return (
-      <div>
-          
-          <List name="Grocery List" items={items} />
-          <ItemForm addItem={this.addItem}/>
+      < div className="container">
+        <List items={this.state.items} itemClick={this.handleClick} />
+        <hr />
+        <ItemForm add={this.addItem} />
       </div>
     );
   }
 }
+
 export default App;

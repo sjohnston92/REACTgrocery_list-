@@ -1,6 +1,20 @@
+*{
+  font-family: 'Ranchers', cursive;
+  
+}
 
 
+h1{
+  text-align: center;
+}
+.container{
+  margin-top: 5%;
+  
+}
 
+li{
+  font-size: 2rem;
+}
 .App {
   text-align: center;
 }
